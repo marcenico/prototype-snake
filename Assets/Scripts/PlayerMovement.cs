@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     // Use ternary operators to set the move direction
     moveDirection.x = Mathf.Abs(moveHorizontal) > Mathf.Abs(moveVertical) ? moveHorizontal : 0f;
     moveDirection.y = Mathf.Abs(moveVertical) > Mathf.Abs(moveHorizontal) ? moveVertical : 0f;
-    moveDirection = moveDirection.normalized;
   }
 
   private void Move()
