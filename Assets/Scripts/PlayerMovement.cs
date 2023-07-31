@@ -33,6 +33,6 @@ public class PlayerMovement : MonoBehaviour
   private void Move()
   {
     transform.position = BoundaryBehaviour.Instance.GetClampPosition(transform.position);
-    rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime * 10;
+    rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime * 100;
   }
 }
