@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca51c09f5feab934e82795c1fbb0cd9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  margin: 0.3
+  margin: 0.4
   boundaries:
     left: 0
     right: 0
