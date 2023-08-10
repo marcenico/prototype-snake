@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerBehaviour : MonoBehaviour
 {
   [SerializeField] private float moveSpeed = 5f;
   private Rigidbody2D rb;
   private Vector2 moveDirection;
   private Vector2 lastMoveDirection = Vector2.zero;
+  private int playerSize = 1;
 
   private void Awake()
   {
@@ -21,6 +22,17 @@ public class PlayerMovement : MonoBehaviour
   private void FixedUpdate()
   {
     Move();
+  }
+
+  private void OnTriggerEnter2D(Collider2D other)
+  {
+    if (other.CompareTag("Item")) IncreasePlayerSize();
+
+  }
+
+  private void IncreasePlayerSize()
+  {
+    playerSize++;
   }
 
   private void GetInputDirection()
