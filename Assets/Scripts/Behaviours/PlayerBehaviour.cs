@@ -5,18 +5,18 @@ public class PlayerBehaviour : MonoBehaviour
   [SerializeField] private float moveSpeed = 5f;
   [SerializeField] private Transform visual;
   [SerializeField] private GameObject segmentPrefab; // Prefab for the player segments
+
   private Rigidbody2D rb;
   private Vector2 moveDirection;
   private Vector2 lastMoveDirection = Vector2.zero;
-  private int playerSize = 1;
+  private int playerSize = 0;
   private Transform[] segments; // Array to hold the player segments
-  private float segmentSpacing = 0.1f; // Spacing between segments
+  private float segmentSpacing = -1f; // Spacing between segments
 
   private void Awake()
   {
     rb = GetComponent<Rigidbody2D>();
     rb.gravityScale = 0f;
-    InitializeSegments();
   }
 
   private void Update()
@@ -27,19 +27,6 @@ public class PlayerBehaviour : MonoBehaviour
   private void FixedUpdate()
   {
     Move();
-    MoveSegments();
-  }
-
-  private void InitializeSegments()
-  {
-    segments = new Transform[playerSize];
-    segments[0] = visual;
-
-    for (int i = 0; i < playerSize; i++)
-    {
-      GameObject newSegment = Instantiate(segmentPrefab, transform.position - new Vector3(0f, i * segmentSpacing, 0f), Quaternion.identity);
-      segments[i] = newSegment.transform;
-    }
   }
 
   private void OnTriggerEnter2D(Collider2D other)
@@ -54,7 +41,9 @@ public class PlayerBehaviour : MonoBehaviour
   private void IncreasePlayerSize()
   {
     playerSize++;
-    AddSegment();
+    Transform newSegment = Instantiate(segmentPrefab, transform.localPosition - new Vector3(playerSize * segmentSpacing, 0f, 0f), Quaternion.identity).transform;
+    newSegment.parent = transform;
+    segments[playerSize] = newSegment.transform;
   }
 
   private void GetInputDirection()
@@ -82,33 +71,6 @@ public class PlayerBehaviour : MonoBehaviour
       float angle = Mathf.Atan2(lastMoveDirection.y, lastMoveDirection.x) * Mathf.Rad2Deg;
       visual.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
-  }
-
-  private void MoveSegments()
-  {
-    Vector3 prevPos = transform.position;
-
-    for (int i = 0; i < playerSize; i++)
-    {
-      Vector3 targetPos = prevPos - new Vector3(0f, (i + 1) * segmentSpacing, 0f);
-      segments[i].position = Vector3.Lerp(segments[i].position, targetPos, Time.fixedDeltaTime * moveSpeed);
-      prevPos = segments[i].position;
-    }
-  }
-
-
-  private void AddSegment()
-  {
-    Transform[] newSegments = new Transform[playerSize];
-    for (int i = 0; i < playerSize - 1; i++)
-    {
-      newSegments[i] = segments[i];
-    }
-
-    GameObject newSegment = Instantiate(segmentPrefab, segments[playerSize - 2].position, Quaternion.identity);
-    newSegments[playerSize - 1] = newSegment.transform;
-
-    segments = newSegments;
   }
 
 }
