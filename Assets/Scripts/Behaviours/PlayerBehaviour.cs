@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -9,9 +10,8 @@ public class PlayerBehaviour : MonoBehaviour
   private Rigidbody2D rb;
   private Vector2 moveDirection;
   private Vector2 lastMoveDirection = Vector2.zero;
-  private int playerSize = 0;
-  private Transform[] segments; // Array to hold the player segments
-  private float segmentSpacing = -1f; // Spacing between segments
+  private List<Transform> segments = new List<Transform>(); // Array to hold the player segments
+  private readonly float segmentSpacing = -0.5f; // Spacing between segments
 
   private void Awake()
   {
@@ -40,10 +40,13 @@ public class PlayerBehaviour : MonoBehaviour
 
   private void IncreasePlayerSize()
   {
-    playerSize++;
-    Transform newSegment = Instantiate(segmentPrefab, transform.localPosition - new Vector3(playerSize * segmentSpacing, 0f, 0f), Quaternion.identity).transform;
+    int playerSize = segments.Count + 1;
+    Vector3 spawnOffset = lastMoveDirection * segmentSpacing * playerSize;
+    Vector3 spawnPosition = visual.position + spawnOffset;
+
+    Transform newSegment = Instantiate(segmentPrefab, spawnPosition, Quaternion.identity).transform;
     newSegment.parent = transform;
-    segments[playerSize] = newSegment.transform;
+    segments.Add(newSegment);
   }
 
   private void GetInputDirection()
