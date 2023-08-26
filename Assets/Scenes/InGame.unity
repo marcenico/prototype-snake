@@ -575,8 +575,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  visual: {fileID: 1406444151}
+  rotationSpeed: 15
   segmentPrefab: {fileID: 8457525159020595001, guid: cd311aba510bf504494df011f2b33a59, type: 3}
+  segments: []
 --- !u!50 &1406444153
 Rigidbody2D:
   serializedVersion: 4
@@ -585,7 +586,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1406444149}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
