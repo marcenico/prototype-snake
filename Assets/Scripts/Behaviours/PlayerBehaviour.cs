@@ -9,7 +9,7 @@ public class PlayerBehaviour : MonoBehaviour
 
   private Rigidbody2D rigidBody2D;
   private Vector2 moveDirection = Vector2.up;
-  public List<Transform> segments = new();
+  private List<Transform> segments = new();
 
   private readonly Dictionary<KeyCode, Vector2> directionMappings = new()
   {
