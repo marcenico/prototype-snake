@@ -57,7 +57,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
       if (Input.GetKeyDown(kvp.Key))
       {
-        moveDirection = kvp.Value;
+        // Prevent setting moveDirection to the opposite direction
+        if (moveDirection != -kvp.Value)
+        {
+          moveDirection = kvp.Value;
+        }
         break;
       }
     }
