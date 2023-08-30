@@ -7,10 +7,9 @@ public class PlayerBehaviour : MonoBehaviour
   [SerializeField] private float rotationSpeed = 15f;
   [SerializeField] private GameObject segmentPrefab;
 
-  private Rigidbody2D rb;
+  private Rigidbody2D rigidBody2D;
   private Vector2 moveDirection = Vector2.up;
   public List<Transform> segments = new();
-  private readonly float segmentSpacing = 0.2f;
 
   private readonly Dictionary<KeyCode, Vector2> directionMappings = new()
   {
@@ -22,8 +21,8 @@ public class PlayerBehaviour : MonoBehaviour
 
   private void Awake()
   {
-    rb = GetComponent<Rigidbody2D>();
-    rb.gravityScale = 0f;
+    rigidBody2D = GetComponent<Rigidbody2D>();
+    rigidBody2D.gravityScale = 0f;
   }
 
   private void Start()
@@ -73,7 +72,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     Vector3 newPosition = transform.position + moveSpeed * Time.fixedDeltaTime * (Vector3)moveDirection;
 
-    rb.MovePosition(newPosition);
+    rigidBody2D.MovePosition(newPosition);
     RotateThroughDirection();
   }
 
