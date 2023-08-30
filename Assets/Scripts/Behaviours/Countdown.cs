@@ -29,6 +29,6 @@ public class Countdown : MonoBehaviour
 
     countdownText.gameObject.SetActive(false);
 
-    // Start your gameplay logic here
+    GameManager.Instance.StartGame();
   }
 }
