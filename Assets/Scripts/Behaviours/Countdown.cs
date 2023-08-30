@@ -7,8 +7,7 @@ public class Countdown : MonoBehaviour
 {
   [SerializeField] private float countdownDuration = 3f; // Duration of the countdown in seconds
   [SerializeField] private TextMeshProUGUI countdownText; // Reference to the UI text that displays the countdown
-
-  private String startGamePhrase = "Goo!";
+  private readonly string startGamePhrase = "Goo!";
 
   private void Start()
   {
