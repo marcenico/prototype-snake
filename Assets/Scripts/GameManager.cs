@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
   public static GameManager Instance { get; private set; } // Singleton instance
 
   [SerializeField] private GameObject player; // Reference to the player GameObject
+  [SerializeField] private ItemSpawner spawner; // Reference to the spawner GameObject
 
 
   private void Awake()
@@ -33,5 +34,6 @@ public class GameManager : MonoBehaviour
   public void StartGame()
   {
     player?.SetActive(true);
+    spawner.SpawnItem();
   }
 }

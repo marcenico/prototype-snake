@@ -889,6 +889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1406444149}
+  spawner: {fileID: 1296525486}
 --- !u!4 &2028905360
 Transform:
   m_ObjectHideFlags: 0
