@@ -5,12 +5,7 @@ public class ItemSpawner : MonoBehaviour
   public GameObject itemPrefab;
   public Transform[] spawnPoints;
 
-  private void Start()
-  {
-    SpawnItem();
-  }
-
-  private void SpawnItem()
+  public void SpawnItem()
   {
     if (itemPrefab == null || spawnPoints.Length == 0)
     {
@@ -22,14 +17,16 @@ public class ItemSpawner : MonoBehaviour
     Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
     GameObject newItem = Instantiate(itemPrefab, spawnPoint.position, Quaternion.identity);
-    newItem.GetComponent<Item>().OnCollected += HandleItemCollected;
+    Item itemComponent = newItem.GetComponent<Item>();
+    itemComponent.OnCollected += HandleItemCollected;
   }
 
-  private void HandleItemCollected(Item previousItem)
+  private void HandleItemCollected(Item collectedItem)
   {
-    // Instantiate the item at the chosen spawn point
+    collectedItem.OnCollected -= HandleItemCollected; // Detach the event handler
+    Destroy(collectedItem.gameObject); // Destroy the collected item
+
+    // Spawn a new item after the previous one is collected
     SpawnItem();
-    // Destroy the previous item
-    Destroy(previousItem.gameObject);
   }
 }
