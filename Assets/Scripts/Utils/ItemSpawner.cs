@@ -4,9 +4,11 @@ public class ItemSpawner : MonoBehaviour
 {
   public GameObject itemPrefab;
 
+  [SerializeField] private float spawnDelay = 1f;
+
   private Vector2 minWorldPos;
   private Vector2 maxWorldPos;
-  private float screenMargin = 2f;
+  private readonly float screenMargin = 2f;
 
   private void Start()
   {
@@ -52,7 +54,7 @@ public class ItemSpawner : MonoBehaviour
     collectedItem.OnCollected -= HandleItemCollected; // Detach the event handler
     Destroy(collectedItem.gameObject); // Destroy the collected item
 
-    // Spawn a new item after the previous one is collected
-    SpawnItem();
+    // Spawn a new item after the previous one is collected with a delay
+    Invoke(nameof(SpawnItem), spawnDelay);
   }
 }
