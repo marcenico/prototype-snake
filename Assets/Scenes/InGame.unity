@@ -537,11 +537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 6165784849209996564, guid: e9aa860aa1705724eb572ce4325e1378, type: 3}
-  spawnPoints:
-  - {fileID: 113341557}
-  - {fileID: 1172999252}
-  - {fileID: 407154491}
-  - {fileID: 84529534}
+  margin: 2
 --- !u!1 &1406444149
 GameObject:
   m_ObjectHideFlags: 0

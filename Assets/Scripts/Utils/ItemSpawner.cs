@@ -3,22 +3,48 @@ using UnityEngine;
 public class ItemSpawner : MonoBehaviour
 {
   public GameObject itemPrefab;
-  public Transform[] spawnPoints;
+
+  private Vector2 minWorldPos;
+  private Vector2 maxWorldPos;
+  private float screenMargin = 2f;
+
+  private void Start()
+  {
+    SetScreenBoundaries();
+  }
 
   public void SpawnItem()
   {
-    if (itemPrefab == null || spawnPoints.Length == 0)
+    if (itemPrefab == null)
     {
-      Debug.LogWarning("Item prefab or spawn points are not set.");
+      Debug.LogWarning("Item prefab is not set.");
       return;
     }
 
-    // Choose a random spawn point
-    Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+    Vector2 spawnPosition = GetRandomVector2Pos();
 
-    GameObject newItem = Instantiate(itemPrefab, spawnPoint.position, Quaternion.identity);
+    GameObject newItem = Instantiate(itemPrefab, spawnPosition, Quaternion.identity);
     Item itemComponent = newItem.GetComponent<Item>();
     itemComponent.OnCollected += HandleItemCollected;
+  }
+
+  private Vector2 GetRandomVector2Pos()
+  {
+    // Generate a random position within the screen boundaries
+    return new Vector2(Random.Range(minWorldPos.x, maxWorldPos.x), Random.Range(minWorldPos.y, maxWorldPos.y));
+  }
+
+  private void SetScreenBoundaries()
+  {
+    // Get the screen boundaries in world coordinates
+    minWorldPos = Camera.main.ScreenToWorldPoint(Vector3.zero);
+    maxWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0f));
+
+    // Apply the margin to the screen boundaries
+    minWorldPos.x += screenMargin;
+    maxWorldPos.x -= screenMargin;
+    minWorldPos.y += screenMargin;
+    maxWorldPos.y -= screenMargin;
   }
 
   private void HandleItemCollected(Item collectedItem)
