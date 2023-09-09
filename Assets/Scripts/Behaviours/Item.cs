@@ -16,6 +16,6 @@ public class Item : MonoBehaviour
   private void Collect()
   {
     OnCollected?.Invoke(this);
-    Destroy(gameObject);
+    //Destroy(gameObject);
   }
 }

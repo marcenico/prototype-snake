@@ -501,6 +501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1296525485}
   - component: {fileID: 1296525486}
+  - component: {fileID: 1296525487}
   m_Layer: 0
   m_Name: Item Spawner
   m_TagString: Untagged
@@ -536,8 +537,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b80d750aaf848c43a0113b6f45fb4f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 6165784849209996564, guid: e9aa860aa1705724eb572ce4325e1378, type: 3}
-  margin: 2
+  spawnDelay: 0.5
+--- !u!114 &1296525487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296525484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca847534a44fa87488741bc44386354e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6165784849209996564, guid: e9aa860aa1705724eb572ce4325e1378, type: 3}
+  initialPoolSize: 2
 --- !u!1 &1406444149
 GameObject:
   m_ObjectHideFlags: 0
