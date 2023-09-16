@@ -1,23 +1,27 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-  [SerializeField] private float moveSpeed = 5f;
   [SerializeField] private float rotationSpeed = 15f;
   [SerializeField] private GameObject segmentPrefab;
+  [SerializeField] private int initialSize = 5;
+  [SerializeField] private float gridUnit = 0.3f; // Size of each grid unit
+  [SerializeField] private float directionChangeCooldown = 0.06f; // Adjust as needed
 
   private Rigidbody2D rigidBody2D;
   private Vector2 moveDirection = Vector2.up;
-  private List<Transform> segments = new();
+  private readonly List<Transform> segments = new();
+  private float lastDirectionChangeTime = 0f;
 
   private readonly Dictionary<KeyCode, Vector2> directionMappings = new()
-  {
-    { KeyCode.W, Vector2.up },
-    { KeyCode.S, Vector2.down },
-    { KeyCode.A, Vector2.left },
-    { KeyCode.D, Vector2.right }
-  };
+    {
+        { KeyCode.W, Vector2.up },
+        { KeyCode.S, Vector2.down},
+        { KeyCode.A, Vector2.left },
+        { KeyCode.D, Vector2.right }
+    };
+
 
   private void Awake()
   {
@@ -27,7 +31,7 @@ public class PlayerBehaviour : MonoBehaviour
 
   private void Start()
   {
-    segments.Add(transform);
+    InitializeSnake();
   }
 
   private void Update()
@@ -42,41 +46,69 @@ public class PlayerBehaviour : MonoBehaviour
 
   private void OnTriggerEnter2D(Collider2D other)
   {
-    if (other.CompareTag("Item")) IncreasePlayerSize();
+    switch (other.tag)
+    {
+      case "Item":
+        AddSegment();
+        break;
+      case "Segment":
+        Debug.Log("Game Over");
+        break;
+    }
   }
 
-  private void IncreasePlayerSize()
+  void InitializeSnake()
   {
-    Transform newSegment = Instantiate(segmentPrefab, transform.position, Quaternion.identity).transform;
-    segments.Add(newSegment);
+    for (int i = 0; i < initialSize; i++)
+    {
+      AddSegment();
+    }
+  }
+
+  void AddSegment()
+  {
+    Vector2 instantiatePosition = segments.Count > 0 ? segments[segments.Count - 1].position : transform.position;
+    GameObject newSegment = Instantiate(segmentPrefab, instantiatePosition, Quaternion.identity);
+    segments.Add(newSegment.transform);
   }
 
   private void GetInputDirection()
   {
     foreach (var kvp in directionMappings)
     {
-      if (Input.GetKeyDown(kvp.Key))
+      if (Input.GetKeyDown(kvp.Key) && Time.time - lastDirectionChangeTime >= directionChangeCooldown)
       {
         // Prevent setting moveDirection to the opposite direction
         if (moveDirection != -kvp.Value)
         {
           moveDirection = kvp.Value;
+          lastDirectionChangeTime = Time.time;
         }
         break;
       }
     }
   }
 
-  private void Move()
+  void Move()
   {
+    float moveDistance = gridUnit; // Snake moves one grid unit per frame
+
+    Vector2 previousPosition = transform.position;
+
+    transform.Translate(moveDirection * moveDistance, Space.World);
+
     for (int i = segments.Count - 1; i > 0; i--)
     {
-      segments[i].position = segments[i - 1].position;
+      Transform currentSegment = segments[i];
+      Transform previousSegment = segments[i - 1];
+      currentSegment.position = previousSegment.position;
     }
 
-    Vector3 newPosition = transform.position + moveSpeed * Time.fixedDeltaTime * (Vector3)moveDirection;
+    if (segments.Count > 0)
+    {
+      segments[0].position = previousPosition;
+    }
 
-    rigidBody2D.MovePosition(newPosition);
     RotateThroughDirection();
   }
 
@@ -90,5 +122,4 @@ public class PlayerBehaviour : MonoBehaviour
 
     transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
   }
-
 }
