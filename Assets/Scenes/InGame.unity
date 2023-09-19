@@ -478,10 +478,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f20ee35f725d44ba0dc369ce61773e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 15
+  rotationSpeed: 10
   segmentPrefab: {fileID: 8457525159020595001, guid: cd311aba510bf504494df011f2b33a59, type: 3}
   initialSize: 0
   gridUnit: 0.3
+  moveSpeed: 10
+  speedIncreaseFactor: 0.1
 --- !u!50 &1406444153
 Rigidbody2D:
   serializedVersion: 4

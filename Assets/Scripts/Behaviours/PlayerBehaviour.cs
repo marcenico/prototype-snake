@@ -7,6 +7,9 @@ public class PlayerBehaviour : MonoBehaviour
   [SerializeField] private GameObject segmentPrefab;
   [SerializeField] private int initialSize = 5;
   [SerializeField] private float gridUnit = 0.3f; // Size of each grid unit
+  [SerializeField] private float moveSpeed = 5f;
+  [SerializeField] private float speedIncreaseFactor = 0.1f;
+
 
   private readonly float directionChangeCooldown = 0.05f;
   private Rigidbody2D rigidBody2D;
@@ -70,6 +73,7 @@ public class PlayerBehaviour : MonoBehaviour
     Vector2 instantiatePosition = segments.Count > 0 ? segments[segments.Count - 1].position : transform.position;
     GameObject newSegment = Instantiate(segmentPrefab, instantiatePosition, Quaternion.identity);
     segments.Add(newSegment.transform);
+    moveSpeed += speedIncreaseFactor; // Increase the speed
   }
 
   private void GetInputDirection()
@@ -91,10 +95,9 @@ public class PlayerBehaviour : MonoBehaviour
 
   void Move()
   {
-    float moveDistance = gridUnit; // Snake moves one grid unit per frame
+    float moveDistance = gridUnit * moveSpeed * Time.fixedDeltaTime; // Snake moves one grid unit per frame
 
     Vector2 previousPosition = transform.position;
-
     transform.Translate(moveDirection * moveDistance, Space.World);
 
     for (int i = segments.Count - 1; i > 0; i--)
