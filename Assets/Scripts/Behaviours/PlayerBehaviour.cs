@@ -7,8 +7,8 @@ public class PlayerBehaviour : MonoBehaviour
   [SerializeField] private GameObject segmentPrefab;
   [SerializeField] private int initialSize = 5;
   [SerializeField] private float gridUnit = 0.3f; // Size of each grid unit
-  [SerializeField] private float directionChangeCooldown = 0.06f; // Adjust as needed
 
+  private readonly float directionChangeCooldown = 0.05f;
   private Rigidbody2D rigidBody2D;
   private Vector2 moveDirection = Vector2.up;
   private readonly List<Transform> segments = new();

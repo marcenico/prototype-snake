@@ -480,9 +480,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 15
   segmentPrefab: {fileID: 8457525159020595001, guid: cd311aba510bf504494df011f2b33a59, type: 3}
-  initialSize: 55
+  initialSize: 0
   gridUnit: 0.3
-  directionChangeCooldown: 0.06
 --- !u!50 &1406444153
 Rigidbody2D:
   serializedVersion: 4
