@@ -480,9 +480,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 10
   segmentPrefab: {fileID: 8457525159020595001, guid: cd311aba510bf504494df011f2b33a59, type: 3}
-  initialSize: 0
+  initialSize: 10
   gridUnit: 0.3
-  moveSpeed: 10
+  initialSpeed: 10
   speedIncreaseFactor: 0.1
 --- !u!50 &1406444153
 Rigidbody2D:
@@ -702,7 +702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ae2785ed69e5443ac1f2f179e62204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1406444149}
+  player: {fileID: 1406444152}
   spawner: {fileID: 1296525486}
 --- !u!4 &2028905360
 Transform:

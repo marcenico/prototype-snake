@@ -7,7 +7,7 @@ public class PlayerBehaviour : MonoBehaviour
   [SerializeField] private GameObject segmentPrefab;
   [SerializeField] private int initialSize = 5;
   [SerializeField] private float gridUnit = 0.3f; // Size of each grid unit
-  [SerializeField] private float moveSpeed = 5f;
+  [SerializeField] private float initialSpeed = 5f;
   [SerializeField] private float speedIncreaseFactor = 0.1f;
 
 
@@ -16,6 +16,7 @@ public class PlayerBehaviour : MonoBehaviour
   private Vector2 moveDirection = Vector2.up;
   private readonly List<Transform> segments = new();
   private float lastDirectionChangeTime = 0f;
+  private float moveSpeed;
 
   private readonly Dictionary<KeyCode, Vector2> directionMappings = new()
     {
@@ -25,11 +26,11 @@ public class PlayerBehaviour : MonoBehaviour
         { KeyCode.D, Vector2.right }
     };
 
-
   private void Awake()
   {
     rigidBody2D = GetComponent<Rigidbody2D>();
     rigidBody2D.gravityScale = 0f;
+    moveSpeed = initialSpeed;
   }
 
   private void Start()
@@ -55,7 +56,7 @@ public class PlayerBehaviour : MonoBehaviour
         AddSegment();
         break;
       case "Segment":
-        Debug.Log("Game Over");
+        GameManager.Instance.GameOver();
         break;
     }
   }
@@ -124,5 +125,21 @@ public class PlayerBehaviour : MonoBehaviour
     float newAngle = Mathf.LerpAngle(currentAngle, targetAngle, Time.fixedDeltaTime * rotationSpeed);
 
     transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
+  }
+
+  public void ResetPlayer()
+  {
+    // Destroy all segments instancianted
+    foreach (Transform segment in segments)
+    {
+      Destroy(segment.gameObject);
+    }
+
+    segments.Clear();
+    transform.position = Vector2.zero;
+    moveSpeed = initialSpeed;
+
+    // Initialize the snake again
+    InitializeSnake();
   }
 }
