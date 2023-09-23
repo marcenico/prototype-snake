@@ -830,3 +830,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textYes: {fileID: 6695398358965893477}
   textNo: {fileID: 4595911387760383241}
+  sceneInGame: {fileID: 102900000, guid: e06cd0da5c70bb94aaab179dcc5678ff, type: 3}
