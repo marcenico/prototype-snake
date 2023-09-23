@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,7 @@ public class GameOverBehaviour : MonoBehaviour
 {
   [SerializeField] private TextMeshProUGUI textYes;
   [SerializeField] private TextMeshProUGUI textNo;
+  [SerializeField] private SceneAsset sceneInGame;
 
   private Direction currentDirection = Direction.Left;
 
@@ -78,7 +80,7 @@ public class GameOverBehaviour : MonoBehaviour
 
   public void OnYes()
   {
-    SceneManager.LoadScene(0);
+    SceneManager.LoadScene(sceneInGame.name);
   }
 
   public void OnNo()

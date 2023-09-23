@@ -704,6 +704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1406444152}
   spawner: {fileID: 1296525486}
+  sceneGameOver: {fileID: 102900000, guid: 086a6baea31f0784aa93a68d265cf6d1, type: 3}
 --- !u!4 &2028905360
 Transform:
   m_ObjectHideFlags: 0
