@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +7,7 @@ public class GameManager : MonoBehaviour
 
   [SerializeField] private PlayerBehaviour player; // Reference to the player GameObject
   [SerializeField] private ItemSpawner spawner; // Reference to the spawner GameObject
-  [SerializeField] private SceneAsset sceneGameOver;
+  [SerializeField] private string sceneGameOver = "GameOver";
 
 
   private void Awake()
@@ -42,8 +41,6 @@ public class GameManager : MonoBehaviour
 
   public void GameOver()
   {
-    SceneManager.LoadScene(sceneGameOver.name);
-
-
+    SceneManager.LoadScene(sceneGameOver);
   }
 }
