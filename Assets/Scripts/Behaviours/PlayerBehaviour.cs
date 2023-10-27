@@ -8,7 +8,7 @@ public class PlayerBehaviour : MonoBehaviour
   [SerializeField] private int initialSize = 5;
   [SerializeField] private float gridUnit = 0.3f; // Size of each grid unit
   [SerializeField] private float initialSpeed = 5f;
-  [SerializeField] private float speedIncreaseFactor = 0.1f;
+  [SerializeField] private float speedIncreaseFactor = 0.05f;
 
 
   private readonly float directionChangeCooldown = 0.05f;
