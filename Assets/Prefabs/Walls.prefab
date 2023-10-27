@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6257494279104310489}
   - component: {fileID: 992879292238612106}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -5,6 +5,7 @@ public class CameraWalls : MonoBehaviour
   private Camera mainCamera;
   private float cameraHeight;
   private float cameraWidth;
+  private readonly string wallTag = "Obstacle";
 
   private void Start()
   {
@@ -34,11 +35,12 @@ public class CameraWalls : MonoBehaviour
     for (int i = 0; i < 4; i++)
     {
       GameObject wall = new GameObject(wallNames[i]);
+      wall.tag = wallTag;
       wall.transform.parent = transform; // Set as child of the GameObject with this script
       BoxCollider2D collider = wall.AddComponent<BoxCollider2D>();
       collider.size = colliderSizes[i];
       wall.transform.position = wallPositions[i];
-      collider.isTrigger = false; // Set as a physical wall
+      collider.isTrigger = true; // Set as a physical wall
     }
   }
 }

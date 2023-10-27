@@ -58,6 +58,9 @@ public class PlayerBehaviour : MonoBehaviour
       case "Segment":
         GameManager.Instance.GameOver();
         break;
+      case "Obstacle":
+        GameManager.Instance.GameOver();
+        break;
     }
   }
 
