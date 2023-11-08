@@ -379,3 +379,4 @@ MonoBehaviour:
   gridUnit: 1.2
   initialSpeed: 2
   speedIncreaseFactor: 0.1
+  colorSet: {fileID: 11400000, guid: 8aac73be559b0a54b8f8b2058c0df86a, type: 2}

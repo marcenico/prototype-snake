@@ -10,7 +10,6 @@ public class PlayerBehaviour : MonoBehaviour
   [SerializeField] private float initialSpeed = 5f;
   [SerializeField] private float speedIncreaseFactor = 0.05f;
 
-
   private readonly float directionChangeCooldown = 0.05f;
   private Rigidbody2D rigidBody2D;
   private Vector2 moveDirection = Vector2.up;
@@ -54,6 +53,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
       case "Item":
         AddSegment();
+        ChangeBackgroundColor();
         break;
       case "Segment":
         GameManager.Instance.GameOver();
@@ -69,6 +69,8 @@ public class PlayerBehaviour : MonoBehaviour
     for (int i = 0; i < initialSize; i++)
     {
       AddSegment();
+      ChangeBackgroundColor();
+      IncreaseSpeed();
     }
   }
 
@@ -77,7 +79,17 @@ public class PlayerBehaviour : MonoBehaviour
     Vector2 instantiatePosition = segments.Count > 0 ? segments[segments.Count - 1].position : transform.position;
     GameObject newSegment = Instantiate(segmentPrefab, instantiatePosition, Quaternion.identity);
     segments.Add(newSegment.transform);
-    moveSpeed += speedIncreaseFactor; // Increase the speed
+
+  }
+
+  void ChangeBackgroundColor()
+  {
+    ColorManager.Instance.ChangeBackgroundColor();
+  }
+
+  void IncreaseSpeed()
+  {
+    moveSpeed += speedIncreaseFactor;
   }
 
   private void GetInputDirection()
